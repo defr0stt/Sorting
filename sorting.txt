@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+void Bubble_sort(int mas[]);
+
+int main()
+{
+    int arr1[] = { 45,13,99,5,80,101,34 }, a;
+
+    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\n\t-----------------\n\n\n     Enter type of sorting : ";
+    cin >> a;
+    cout << "   __________________________________________\n";
+
+    switch (a)
+    {
+        case 1: Bubble_sort(arr1);
+
+        default:
+            break;
+    }
+    
+    return 0;
+
+}
+
+
+
+
+void Bubble_sort(int mas[])
+{
+
+    cout << "  |\t\t\t\t\t     |\n  |  NOT sorted array: ";
+
+    for (int i = 0; i < 7; i++) {
+        cout << mas[i] << " "; // output of sorted elements
+    }
+    cout << " |";
+
+    for (int i = 0; i < 7; i++) {       //7 - count of elements
+        for (int j = 0; j < 6; j++) {
+            if (mas[j] > mas[j + 1]) {
+                int b = mas[j];         // temp variable
+                mas[j] = mas[j + 1];    // swap positions
+                mas[j + 1] = b;         // and values of elements
+            }
+        }
+    }
+
+    cout << "\n  |\t\t\t\t\t     |\n  |  Sorted array: ";
+
+    for (int i = 0; i < 7; i++) {
+        cout << mas[i] << " "; // output of sorted elements
+    }
+    cout << "     |\n  |__________________________________________|\n\n";
+
+}
