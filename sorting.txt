@@ -6,20 +6,24 @@ void Tabular_function_2(int mas[]);
 
 void Bubble_sort(int mas[]);
 void Insertion_sort(int mas[]);
+void Selection_sort(int mas[]);
 
 int main()
 {
     int arr1[] = { 45,13,99,5,80,101,34 }, a;
 
-    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\n\t-----------------\n\n     Enter type of sorting : ";
+    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\n\t-----------------\n\n     Enter type of sorting : ";
     cin >> a;
     cout << "   __________________________________________\n";
 
     switch (a)
     {
         case 1: Bubble_sort(arr1);
+            break;
         case 2: Insertion_sort(arr1);
-
+            break;
+        case 3: Insertion_sort(arr1);
+            break;
         default:
             break;
     }
@@ -83,6 +87,37 @@ void Insertion_sort(int mas[])
             array_ptr[item] = temp;
             item--;
         }
+    }
+
+    Tabular_function_2(mas);
+}
+
+void Selection_sort(int mas[])
+{
+    int max = mas[0], count=7, f=0, a=0,b=1, temp;
+
+    Tabular_function_1(mas);
+
+    for (int i = 0; i < count; )     //7 - count of elements
+    {                                //
+        while(f!=count)              //from smaller to bigger   
+        {                            //
+            if (mas[a] >= mas[b])    //max elem in array goes to the last place
+                b++;
+            else
+            {
+                max = mas[b];
+                a = b;
+                b++;
+            }
+            f++;
+        }
+        temp = mas[count];
+        mas[count] = mas[a];
+        mas[a] = temp;
+        count--;
+        a = 0;
+        b = 1;
     }
 
     Tabular_function_2(mas);
