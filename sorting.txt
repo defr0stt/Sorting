@@ -1,19 +1,24 @@
 #include <iostream>
 using namespace std;
 
+void Tabular_function_1(int mas[]);
+void Tabular_function_2(int mas[]);
+
 void Bubble_sort(int mas[]);
+void Insertion_sort(int mas[]);
 
 int main()
 {
     int arr1[] = { 45,13,99,5,80,101,34 }, a;
 
-    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\n\t-----------------\n\n\n     Enter type of sorting : ";
+    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\n\t-----------------\n\n     Enter type of sorting : ";
     cin >> a;
     cout << "   __________________________________________\n";
 
     switch (a)
     {
         case 1: Bubble_sort(arr1);
+        case 2: Insertion_sort(arr1);
 
         default:
             break;
@@ -23,18 +28,29 @@ int main()
 
 }
 
-
-
-
-void Bubble_sort(int mas[])
+void Tabular_function_1(int mas[])
 {
-
     cout << "  |\t\t\t\t\t     |\n  |  NOT sorted array: ";
 
     for (int i = 0; i < 7; i++) {
         cout << mas[i] << " "; // output of sorted elements
     }
     cout << " |";
+}
+
+void Tabular_function_2(int mas[])
+{
+    cout << "\n  |\t\t\t\t\t     |\n  |  Sorted array: ";
+
+    for (int i = 0; i < 7; i++) {
+        cout << mas[i] << " "; // output of sorted elements
+    }
+    cout << "     |\n  |__________________________________________|\n\n";
+}
+
+void Bubble_sort(int mas[])
+{
+    Tabular_function_1(mas);
 
     for (int i = 0; i < 7; i++) {       //7 - count of elements
         for (int j = 0; j < 6; j++) {
@@ -46,11 +62,28 @@ void Bubble_sort(int mas[])
         }
     }
 
-    cout << "\n  |\t\t\t\t\t     |\n  |  Sorted array: ";
+    Tabular_function_2(mas);
+}
 
-    for (int i = 0; i < 7; i++) {
-        cout << mas[i] << " "; // output of sorted elements
+void Insertion_sort(int mas[])
+{
+
+    Tabular_function_1(mas);
+
+    int temp, // temp variable 
+        item, // index of previous element
+        * array_ptr=mas; //pointer on array
+    for (int counter = 1; counter < 7; counter++) //7-array length 
+    {
+        temp = array_ptr[counter]; // temp = present element in array
+        item = counter - 1;        // remember index of the previod element
+        while (item >= 0 && array_ptr[item] > temp) 
+        {
+            array_ptr[item + 1] = array_ptr[item]; // swapping of array elements
+            array_ptr[item] = temp;
+            item--;
+        }
     }
-    cout << "     |\n  |__________________________________________|\n\n";
 
+    Tabular_function_2(mas);
 }
