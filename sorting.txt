@@ -7,12 +7,13 @@ void Tabular_function_2(int mas[]);
 void Bubble_sort(int mas[]);
 void Insertion_sort(int mas[]);
 void Selection_sort(int mas[]);
+void Shell_sort(int mas[]);
 
 int main()
 {
     int arr1[] = { 45,13,99,5,80,101,34 }, a;
 
-    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\n\t-----------------\n\n     Enter type of sorting : ";
+    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\tShell sort - 4\n\n\t-----------------\n\n     Enter type of sorting : ";
     cin >> a;
     cout << "   __________________________________________\n";
 
@@ -23,6 +24,8 @@ int main()
         case 2: Insertion_sort(arr1);
             break;
         case 3: Insertion_sort(arr1);
+            break;
+        case 4: Shell_sort(arr1);
             break;
         default:
             break;
@@ -119,6 +122,30 @@ void Selection_sort(int mas[])
         a = 0;
         b = 1;
     }
+
+    Tabular_function_2(mas);
+}
+
+void Shell_sort(int mas[])
+{
+
+    Tabular_function_1(mas);
+
+    int i, j, step;
+    int tmp;
+    for (step = 7 / 2; step > 0; step /= 2)     //7 - count of elements
+        for (i = step; i < 7; i++)              //
+        {                                       //sorting with using whjile step!=0
+            tmp = mas[i];
+            for (j = i; j >= step; j -= step)
+            {
+                if (tmp < mas[j - step])
+                    mas[j] = mas[j - step];
+                else
+                    break;
+            }
+            mas[j] = tmp;
+        }
 
     Tabular_function_2(mas);
 }
