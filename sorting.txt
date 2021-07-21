@@ -1,31 +1,42 @@
+#include<time.h>
 #include <iostream>
 using namespace std;
 
-void Tabular_function_1(int mas[]);
-void Tabular_function_2(int mas[]);
+void Tabular_function_1(int mas[],int n);
+void Tabular_function_2(int mas[], int n);
 
-void Bubble_sort(int mas[]);
-void Insertion_sort(int mas[]);
-void Selection_sort(int mas[]);
-void Shell_sort(int mas[]);
+void Bubble_sort(int mas[], int n);             // compasion every element with each other
+void Insertion_sort(int mas[], int n);          // element inserts between higher and lower elements
+void Selection_sort(int mas[], int n);          // max element go on the last place in array
+void Shell_sort(int mas[], int n);              // distance between elements what comparing every time decreases
+void Merge_sort(int* a, int n);                 // division all array on 2 patrs, each of these sort and then they merge
 
 int main()
 {
-    int arr1[] = { 45,13,99,5,80,101,34 }, a;
+    int a, elem;
 
-    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\tShell sort - 4\n\n\t-----------------\n\n     Enter type of sorting : ";
+    srand(time(NULL));
+
+    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\tShell sort - 4\n\tMerge sort - 5\n\n\t-----------------\n\n     Enter type of sorting : ";
     cin >> a;
-    cout << "   __________________________________________\n";
+    cout << "     Enter count of elements : ";
+    cin >> elem;
+
+    int *arr1 = new int[elem];
+    for(int i=0;i<elem;i++)
+        arr1[i] = 100 + rand() % 901; // 100 ... 1000
 
     switch (a)
     {
-        case 1: Bubble_sort(arr1);
+        case 1: Bubble_sort(arr1, elem);
             break;
-        case 2: Insertion_sort(arr1);
+        case 2: Insertion_sort(arr1, elem);
             break;
-        case 3: Insertion_sort(arr1);
+        case 3: Insertion_sort(arr1, elem);
             break;
-        case 4: Shell_sort(arr1);
+        case 4: Shell_sort(arr1, elem);
+            break;
+        case 5: Merge_sort(arr1, elem);
             break;
         default:
             break;
@@ -35,32 +46,57 @@ int main()
 
 }
 
-void Tabular_function_1(int mas[])
+void Tabular_function_1(int mas[], int n)
 {
-    cout << "  |\t\t\t\t\t     |\n  |  NOT sorted array: ";
+    int b=25;
+    cout << "   ____________________";
 
-    for (int i = 0; i < 7; i++) {
+    for (int k = 0; k < n; k++)
+    { 
+        cout << "____";
+        b += 4;
+    }
+    cout << "_\n";
+
+    cout << "  |";
+    for (int k = 0; k < n*4+21; k++)
+        cout << " ";
+    cout << "|";
+    cout << "\n  |  NOT sorted array: ";
+
+    for (int i = 0; i < n; i++) {
         cout << mas[i] << " "; // output of sorted elements
     }
     cout << " |";
 }
 
-void Tabular_function_2(int mas[])
+void Tabular_function_2(int mas[],int n)
 {
-    cout << "\n  |\t\t\t\t\t     |\n  |  Sorted array: ";
+    cout << "\n  |";
+    for (int k = 0; k < n * 4 + 21; k++)
+        cout << " ";
+    cout << "|";
+    cout << "\n  |  Sorted array: ";
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < n; i++) {
         cout << mas[i] << " "; // output of sorted elements
     }
-    cout << "     |\n  |__________________________________________|\n\n";
+    cout << "     |\n  |____________________";
+    int b = 25;
+    for (int k = 0; k < n; k++)
+    {
+        cout << "____";
+        b += 4;
+    }
+    cout << "_|\n";
 }
 
-void Bubble_sort(int mas[])
+void Bubble_sort(int mas[], int n)
 {
-    Tabular_function_1(mas);
+    Tabular_function_1(mas,n);
 
-    for (int i = 0; i < 7; i++) {       //7 - count of elements
-        for (int j = 0; j < 6; j++) {
+    for (int i = 0; i < n; i++) {       //n - count of elements
+        for (int j = 0; j < n-1; j++) {
             if (mas[j] > mas[j + 1]) {
                 int b = mas[j];         // temp variable
                 mas[j] = mas[j + 1];    // swap positions
@@ -69,41 +105,41 @@ void Bubble_sort(int mas[])
         }
     }
 
-    Tabular_function_2(mas);
+    Tabular_function_2(mas,n);
 }
 
-void Insertion_sort(int mas[])
+void Insertion_sort(int mas[], int n)
 {
 
-    Tabular_function_1(mas);
+    Tabular_function_1(mas,n);
 
-    int temp, // temp variable 
-        item, // index of previous element
-        * array_ptr=mas; //pointer on array
-    for (int counter = 1; counter < 7; counter++) //7-array length 
+    int temp,                                       // temp variable 
+        item,                                       // index of previous element
+        * array_ptr=mas;                            //pointer on array
+    for (int counter = 1; counter < n; counter++)   //n-array length 
     {
-        temp = array_ptr[counter]; // temp = present element in array
-        item = counter - 1;        // remember index of the previod element
+        temp = array_ptr[counter];                  // temp = present element in array
+        item = counter - 1;                         // remember index of the previod element
         while (item >= 0 && array_ptr[item] > temp) 
         {
-            array_ptr[item + 1] = array_ptr[item]; // swapping of array elements
+            array_ptr[item + 1] = array_ptr[item];  // swapping of array elements
             array_ptr[item] = temp;
             item--;
         }
     }
 
-    Tabular_function_2(mas);
+    Tabular_function_2(mas,n);
 }
 
-void Selection_sort(int mas[])
+void Selection_sort(int mas[], int n)
 {
-    int max = mas[0], count=7, f=0, a=0,b=1, temp;
+    int max = mas[0], count=n, f=0, a=0,b=1, temp;
 
-    Tabular_function_1(mas);
+    Tabular_function_1(mas,n);
 
-    for (int i = 0; i < count; )     //7 - count of elements
+    for (int i = 0; i < count; )     //n - count of elements
     {                                //
-        while(f!=count)              //from smaller to bigger   
+        while(f!=n)                  //from smaller to bigger   
         {                            //
             if (mas[a] >= mas[b])    //max elem in array goes to the last place
                 b++;
@@ -115,26 +151,26 @@ void Selection_sort(int mas[])
             }
             f++;
         }
-        temp = mas[count];
-        mas[count] = mas[a];
+        temp = mas[n];
+        mas[n] = mas[a];
         mas[a] = temp;
-        count--;
+        n--;
         a = 0;
         b = 1;
     }
 
-    Tabular_function_2(mas);
+    Tabular_function_2(mas,n);
 }
 
-void Shell_sort(int mas[])
+void Shell_sort(int mas[], int n)
 {
 
-    Tabular_function_1(mas);
+    Tabular_function_1(mas,n);
 
     int i, j, step;
     int tmp;
-    for (step = 7 / 2; step > 0; step /= 2)     //7 - count of elements
-        for (i = step; i < 7; i++)              //
+    for (step = n / 2; step > 0; step /= 2)     //n - count of elements
+        for (i = step; i < n; i++)              //
         {                                       //sorting with using whjile step!=0
             tmp = mas[i];
             for (j = i; j >= step; j -= step)
@@ -147,5 +183,57 @@ void Shell_sort(int mas[])
             mas[j] = tmp;
         }
 
-    Tabular_function_2(mas);
+    Tabular_function_2(mas,n);
+}
+
+void Merge_sort(int* a, int n)  
+{
+    int mid = n / 2; 
+    if (n % 2 == 1)
+        mid++;
+    int h = 1; 
+
+    Tabular_function_1(a, n);
+    
+    int* c = (int*)malloc(n * sizeof(int));
+    int step;
+    while (h < n)
+    {
+        step = h;
+        int i = 0;   
+        int j = mid; 
+        int k = 0;   
+        while (step <= mid)
+        {
+            while ((i < step) && (j < n) && (j < (mid + step)))
+            { 
+                if (a[i] < a[j])
+                {
+                    c[k] = a[i];
+                    i++; k++;
+                }
+                else {
+                    c[k] = a[j];
+                    j++; k++;
+                }
+            }
+            while (i < step)
+            { 
+                c[k] = a[i];
+                i++; k++;
+            }
+            while ((j < (mid + step)) && (j < n))
+            {  
+                c[k] = a[j];
+                j++; k++;
+            }
+            step = step + h; 
+        }
+        h = h * 2;
+       
+        for (i = 0; i < n; i++)
+            a[i] = c[i];
+    }
+
+    Tabular_function_2(a, n);
 }
