@@ -48,7 +48,6 @@ int main()
     }
     
     return 0;
-
 }
 
 void Tabular_function_1(int mas[], int n)
