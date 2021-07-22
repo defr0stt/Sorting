@@ -5,11 +5,12 @@ using namespace std;
 void Tabular_function_1(int mas[],int n);
 void Tabular_function_2(int mas[], int n);
 
-void Bubble_sort(int mas[], int n);             // compasion every element with each other
-void Insertion_sort(int mas[], int n);          // element inserts between higher and lower elements
-void Selection_sort(int mas[], int n);          // max element go on the last place in array
-void Shell_sort(int mas[], int n);              // distance between elements what comparing every time decreases
-void Merge_sort(int* a, int n);                 // division all array on 2 patrs, each of these sort and then they merge
+void Bubble_sort(int mas[], int n);                         // compasion every element with each other
+void Insertion_sort(int mas[], int n);                      // element inserts between higher and lower elements
+void Selection_sort(int mas[], int n);                      // max element go on the last place in array
+void Shell_sort(int mas[], int n);                          // distance between elements what comparing every time decreases
+void Merge_sort(int* a, int n);                             // division all array on 2 patrs, each of these sort and then they merge
+void Quick_sort(int mas[], int first, int last);
 
 int main()
 {
@@ -17,14 +18,14 @@ int main()
 
     srand(time(NULL));
 
-    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\tShell sort - 4\n\tMerge sort - 5\n\n\t-----------------\n\n     Enter type of sorting : ";
+    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\tShell sort - 4\n\tMerge sort - 5\n\tQuick sort - 6\n\n\t-----------------\n\n     Enter type of sorting : ";
     cin >> a;
     cout << "     Enter count of elements : ";
     cin >> elem;
 
     int *arr1 = new int[elem];
     for(int i=0;i<elem;i++)
-        arr1[i] = 100 + rand() % 901; // 100 ... 1000
+        arr1[i] = 100 + rand() % 900; // 100 ... 999
 
     switch (a)
     {
@@ -38,6 +39,10 @@ int main()
             break;
         case 5: Merge_sort(arr1, elem);
             break;
+        case 6: Tabular_function_1(arr1, elem);         // tabular function are here because of Quick_sort is recursion function
+            Quick_sort(arr1, 0, elem-1);          //
+            Tabular_function_2(arr1, elem);             //
+            break;                                      //
         default:
             break;
     }
@@ -236,4 +241,33 @@ void Merge_sort(int* a, int n)
     }
 
     Tabular_function_2(a, n);
+}
+
+void Quick_sort(int mas[], int first, int last)
+{
+    if(first < last)
+    { 
+        int left = first;
+        int right = last;
+        int middle = mas[(left+right)/2];       // middle elem
+
+        do 
+        {
+            while (mas[left] < middle)          // if lower then middle elem
+                left++;                         //
+            while (mas[right] > middle)         // if higher then middle elem
+                right--;                        //
+            if (left <= right)                  // if they don`t point on the same element
+            {
+                int temp = mas[left];           // swapping of elements
+                mas[left] = mas[right];
+                mas[right] = temp;
+                left++;
+                right--;
+            }
+        } while (left < right);                 // while they don`t point on the same element
+
+        Quick_sort(mas, first, right);
+        Quick_sort(mas, last, left);
+    }
 }
