@@ -11,6 +11,7 @@ void Selection_sort(int mas[], int n);                      // max element go on
 void Shell_sort(int mas[], int n);                          // distance between elements what comparing every time decreases
 void Merge_sort(int* a, int n);                             // division all array on 2 patrs, each of these sort and then they merge
 void Quick_sort(int mas[], int first, int last);            // if lower then middle elem go left if higher go right
+void Shaker_sort(int mas[], int n);                         // updated bubble sort (in in 1 cycle no swapping - push the boundaries)
 
 int main()
 {
@@ -18,7 +19,7 @@ int main()
 
     srand(time(NULL));
 
-    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\tShell sort - 4\n\tMerge sort - 5\n\tQuick sort - 6\n\n\t-----------------\n\n     Enter type of sorting : ";
+    cout << "\n\t-----------------\n\t| Sorting types |\n\t-----------------\n\n\tBubble sort - 1\n\tInsertion sort - 2\n\tSelection sort - 3\n\tShell sort - 4\n\tMerge sort - 5\n\tQuick sort - 6\n\tShaker sort - 7\n\n\t-----------------\n\n     Enter type of sorting : ";
     cin >> a;
     cout << "     Enter count of elements : ";
     cin >> elem;
@@ -43,11 +44,16 @@ int main()
             Quick_sort(arr1, 0, elem-1);                //
             Tabular_function_2(arr1, elem);             //
             break;                                      //
+        case 7: Shaker_sort(arr1, elem);
+            break;
         default:
             break;
     }
-    
+
+    delete[] arr1;
+
     return 0;
+
 }
 
 void Tabular_function_1(int mas[], int n)
@@ -269,4 +275,43 @@ void Quick_sort(int mas[], int first, int last)
         Quick_sort(mas, first, right);
         Quick_sort(mas, left, last);
     }
+}
+
+void Shaker_sort(int mas[], int n)
+{
+    int left = 0, right = n - 1;         // first and last array elem
+    int flag = 1;  
+                                        // execution of the cycle while last left and right elements haven`t mets 
+
+    Tabular_function_1(mas, n);
+                                        
+    while ((left < right) && flag > 0)
+    {
+        flag = 0;
+        for (int i = left; i < right; i++)  //going left to right
+        {
+            if (mas[i] > mas[i + 1])        // swap elements like in a bubble sort
+            {                               
+                double t = mas[i];
+                mas[i] = mas[i + 1];
+                mas[i + 1] = t;
+                flag = 1;                   // swappings have done in this cycle
+            }
+        }
+        right--;                            // change last right element on the previous element
+
+        for (int i = right; i > left; i--)  //going right to left
+        {
+            if (mas[i - 1] > mas[i])        // swap elements like in a bubble sort
+            {            
+                double t = mas[i];
+                mas[i] = mas[i - 1];
+                mas[i - 1] = t;
+                flag = 1;    // swappings have done in this cycle
+            }
+        }
+        left++; // change last left element on the previous element
+    }
+
+    Tabular_function_2(mas, n);
 }
