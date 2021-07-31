@@ -1,4 +1,4 @@
-#include<time.h>
+﻿#include<time.h>
 #include <iostream>
 using namespace std;
 
@@ -53,6 +53,7 @@ int main()
     delete[] arr1;
 
     return 0;
+
 }
 
 void Tabular_function_1(int mas[], int n)
@@ -314,4 +315,3 @@ void Shaker_sort(int mas[], int n)
 
     Tabular_function_2(mas, n);
 }
-
