@@ -34,7 +34,7 @@ int main()
             break;
         case 2: Insertion_sort(arr1, elem);
             break;
-        case 3: Insertion_sort(arr1, elem);
+        case 3: Selection_sort(arr1, elem);
             break;
         case 4: Shell_sort(arr1, elem);
             break;
@@ -147,13 +147,13 @@ void Selection_sort(int mas[], int n)
 
     Tabular_function_1(mas,n);
 
-    for (int i = 0; i < count; )     //n - count of elements
+    while(n>0)     //n - count of elements
     {                                //
-        while(f!=n)                  //from smaller to bigger   
+        while(f<n)                  //from smaller to bigger   
         {                            //
-            if (mas[a] >= mas[b])    //max elem in array goes to the last place
+            if (mas[a] >= mas[b] && b!=n)    //max elem in array goes to the last place
                 b++;
-            else
+            else if(b != n)
             {
                 max = mas[b];
                 a = b;
@@ -161,15 +161,17 @@ void Selection_sort(int mas[], int n)
             }
             f++;
         }
-        temp = mas[n];
-        mas[n] = mas[a];
+        f = 0;
+        temp = mas[n-1];
+        mas[n-1] = mas[a];
         mas[a] = temp;
         n--;
+        max = mas[0];
         a = 0;
         b = 1;
     }
 
-    Tabular_function_2(mas,n);
+    Tabular_function_2(mas,count);
 }
 
 void Shell_sort(int mas[], int n)
